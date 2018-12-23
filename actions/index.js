@@ -1,20 +1,13 @@
-export const RECEIVE_DOCKS = 'RECEIVE_ENTRIES'
-export const ADD_DOCK = 'ADD_DOCK'
+export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 
-export function receiveDocks (docks) {
+
+export function receiveDecks (decks) {
     return {
-        type: RECEIVE_DOCKS,
-        docks
+        type: RECEIVE_DECKS,
+        decks
     }
 }
 
-
-export function addDocks (dock) {
-    return {
-        type: ADD_DOCK,
-        dock
-    }
-}
 
 
 

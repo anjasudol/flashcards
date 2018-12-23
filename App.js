@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStore } from 'redux';
 import reducer from './reducer'
 import { Provider } from 'react-redux'
-// import middleware from './middleware'
 import Decks from './components/Decks'
 const store = createStore(reducer)
 

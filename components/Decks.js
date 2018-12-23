@@ -3,16 +3,21 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
 import { fetchDeckResults } from '../api/api'
-import { receiveDocks } from '../actions'
+import { receiveDecks } from '../actions'
+import { Asset, AppLoading } from 'expo';
 
 // create a component
 class Decks extends Component {
+    state= {
+        ready: false
+    }
     componentDidMount() {
         fetchDeckResults()
-        .then((decks)=> this.props.dispatch(receiveDocks(decks)))
+        .then((decks)=> this.props.dispatch(receiveDecks(decks)))
     }
 
     render() {
+        
         return (
             <View style={styles.container}>
                 <Text>Decks</Text>
