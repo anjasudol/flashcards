@@ -22,7 +22,8 @@ class Decks extends Component {
     renderItem = ({ item }) => (
         <TouchableOpacity 
           style={{ borderBottomWidth: 1, borderBottomColor: 'black', }} 
-        //   onPress={() => navigation.navigate('DeckInfo', { deckTitle: item.title })}
+          onPress={() => this.props.navigation.navigate('DeckInfo', { titleId: item.title }
+          )}
         >
           <Deck {...item}/>
         </TouchableOpacity>

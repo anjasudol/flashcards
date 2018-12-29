@@ -5,8 +5,10 @@ import reducer from './reducer'
 import { Provider } from 'react-redux'
 import Decks from './components/Decks'
 import AddCard from './components/AddCard'
+import DeckInfo from './components/DeckInfo'
+import Quiz from './components/Quiz'
 const store = createStore(reducer)
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 
@@ -54,13 +56,37 @@ const Tabs = TabNavigator({
 }
 )
 
+const MainNavigator = createStackNavigator(
+  {
+      Home: {
+          screen: Tabs,
+      },
+      DeckInfo: {
+          screen: DeckInfo,
+      },
+      AddCard: {
+        screen: AddCard,
+      },
+      Quiz: {
+        screen: Quiz,
+      }
+}, {
+  navigationOptions: {
+    headerBackTitle: null,
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: 'black'
+    }
+  },
+})
+
 export default class App extends React.Component {
   render() {
     return (
      <Provider store={store}>
         <View style={{flex: 1}}>
           <FlashCardStatusBar backgroundColor={'purple'} barStyle="light-content"/> 
-          <Tabs/>
+          <MainNavigator/>
 
         </View>
      </Provider>

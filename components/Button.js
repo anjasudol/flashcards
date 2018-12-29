@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 50,
         height: 45,
+        width: 250,
 
     },
     submitBtnText: {

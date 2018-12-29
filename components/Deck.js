@@ -5,7 +5,7 @@ export default function Deck ({ title, questions }) {
 	return (
 	  <View style={styles.card}>
       <Text style={styles.titleOne}>{title}</Text>
-      <Text style={styles.titleTwo}>{questions.length} cards</Text>
+      <Text style={styles.titleTwo}>{questions.length} {questions.length > 1 ? 'cards' : 'card'}</Text>
 	  </View>
 	)
   }
