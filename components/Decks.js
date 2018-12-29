@@ -6,7 +6,7 @@ import { fetchDeckResults } from '../api/api'
 import { receiveDecks } from '../actions'
 import { Asset, AppLoading } from 'expo';
 import Deck from './Deck'
-import DeckCard from './DeckCard'
+
 // create a component
 class Decks extends Component {
     state= {
@@ -22,7 +22,7 @@ class Decks extends Component {
     renderItem = ({ item }) => (
         <TouchableOpacity 
           style={{ borderBottomWidth: 1, borderBottomColor: 'black', }} 
-          onPress={() => this.props.navigation.navigate('DeckCard', { deckId: item.title })}
+        //   onPress={() => navigation.navigate('DeckInfo', { deckTitle: item.title })}
         >
           <Deck {...item}/>
         </TouchableOpacity>
