@@ -7,7 +7,7 @@ import { HeaderBackButton, NavigationActions } from 'react-navigation'
 
 // create a component
 class DeckInfo extends Component {
-    	static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({ navigation }) => {
 		return {
             title: navigation.state["params"].titleId,
             headerLeft: <HeaderBackButton tintColor={'white'} onPress={() => navigation.navigate('Home')} />,
@@ -15,14 +15,15 @@ class DeckInfo extends Component {
         }
 
     render() {
-        const questions = this.props.deckInfo.questions
-        console.log(questions.length)
+        const { deckInfo, navigation } = this.props
+        const questions = deckInfo.questions
+
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{this.props.deckInfo.title}</Text>
+                <Text style={styles.title}>{deckInfo.title}</Text>
                 <Text style={styles.subtitle}>{questions.length} {questions.length > 1 ? 'cards' : 'card'}</Text>
-                <Button text='Start quiz' onPress={()=> this.props.navigation.navigate('Quiz')}/>
-                <Button text='Add Card' backCol='grey' onPress={()=> this.props.navigation.navigate('AddCard')}/>
+                {questions.length > 0 ? <Button text='Start quiz' onPress={()=> navigation.navigate('Quiz')}/> : <Text style={styles.text}>To start the quiz you must add at least one card</Text>}
+                <Button text='Add Card' backCol='grey' onPress={()=> navigation.navigate('AddCard', { titleId: deckInfo.title })}/>
             </View>
         );
     }
@@ -44,13 +45,23 @@ const styles = StyleSheet.create({
 	subtitle : {
 		fontSize: 15,
 		color: 'grey'
-	}
+    },
+    text: {
+        paddingTop: 60,
+        paddingHorizontal: 60,
+        fontSize: 15,
+        color: 'black',
+        textAlign: 'center'
+    }
 });
-function mapStateToProps (decks, props) {
-    const titleID =props.navigation.state.params.titleId
+  
+  
+function mapStateToProps (decks,{ navigation }) {
+    const { titleId } = navigation.state.params
     return {
         decks,
-        deckInfo: decks[titleID]
+        deckInfo: decks[titleId],
+        titleId
     }
 }
 //make this component available to the app

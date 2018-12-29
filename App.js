@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, StatusBar, Platform, TouchableOpacity } from 'r
 import { createStore } from 'redux';
 import reducer from './reducer'
 import { Provider } from 'react-redux'
-import Decks from './components/Decks'
+import DeckList from './components/DeckList'
 import AddCard from './components/AddCard'
 import DeckInfo from './components/DeckInfo'
 import Quiz from './components/Quiz'
+import AddDeck from './components/AddDeck'
+
 const store = createStore(reducer)
 import { TabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
@@ -23,17 +25,17 @@ function FlashCardStatusBar({backgroundColor, ...props}){
 
 
 const Tabs = TabNavigator({
-  Decks: {
-    screen: Decks,
+  DeckList: {
+    screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     }
   },
-  AddCard: {
-    screen: AddCard,
+  AddDeck: {
+    screen: AddDeck,
     navigationOptions: {
-      tabBarLabel: 'Add Card',
+      tabBarLabel: 'Add Deck',
       tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
     }
   }

@@ -1,11 +1,12 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { View, StyleSheet, TextInput } from 'react-native';
+import { connect } from 'react-redux'
+import Button from './Button'
 
 // create a component
 class AddCard extends Component {
     state ={
-        title: '',
         question: '',
         answer: ''
     }
@@ -17,12 +18,6 @@ class AddCard extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(title) => this.setState({title})}
-                    placeholder='Add a title'
-                    value={this.state.title}
-                />
                  <TextInput
                     style={styles.input}
                     onChangeText={(question) => this.setState({question})}
@@ -35,9 +30,7 @@ class AddCard extends Component {
                     placeholder='Add an answer'
                     value={this.state.answer}
                 />
-                <TouchableOpacity onPress={this.submit} style={styles.btn}>
-                        <Text style={styles.submitBtnText}>Submit</Text>
-                </TouchableOpacity>
+                <Button text='Add card' onPress={this.submit}/>
             </View>
         );
     }
@@ -74,5 +67,10 @@ const styles = StyleSheet.create({
     },
 });
 
+function mapStateToProps (decks) {
+    return {
+        decks,
+    }
+}
 //make this component available to the app
-export default AddCard;
+export default connect(mapStateToProps)(AddCard);
