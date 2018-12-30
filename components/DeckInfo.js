@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux'
 import Button from './Button'
-import { HeaderBackButton, NavigationActions } from 'react-navigation'
+import { HeaderBackButton } from 'react-navigation'
 
 // create a component
 class DeckInfo extends Component {
@@ -16,14 +16,15 @@ class DeckInfo extends Component {
 
     render() {
         const { deckInfo, navigation } = this.props
-        const questions = deckInfo ? deckInfo.questions : null
+        const questions = deckInfo ? deckInfo.questions.length : null
+        const title = deckInfo ? deckInfo.title : null
 
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>{deckInfo.title}</Text>
-                <Text style={styles.subtitle}>{questions.length} {questions.length > 1 ? 'cards' : 'card'}</Text>
-                {questions.length > 0 ? <Button text='Start quiz' onPress={()=> navigation.navigate('Quiz')}/> : <Text style={styles.text}>To start the quiz you must add at least one card</Text>}
-                <Button text='Add Card' backCol='grey' onPress={()=> navigation.navigate('AddCard', { titleId: deckInfo.title })}/>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.subtitle}>{questions} {questions > 1 ? 'cards' : 'card'}</Text>
+                {questions > 0 ? <Button text='Start quiz' onPress={()=> navigation.navigate('Quiz')}/> : <Text style={styles.text}>To start the quiz you must add at least one card</Text>}
+                <Button text='Add Card' backCol='grey' onPress={()=> navigation.navigate('AddCard', { titleId: title })}/>
             </View>
         );
     }

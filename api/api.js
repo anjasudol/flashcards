@@ -14,25 +14,25 @@ import {formatDeckResults, DECK_STORAGE_KEY} from './_DATA'
 
 
 // add deck
-export function saveDeckTitle(title) {
-	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
-		[title]: {
-      title: title,
-      questions: []
-    }
-	}))
-}
+// export function saveDeckTitle(title) {
+// 	return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+// 		[title]: {
+//       title: title,
+//       questions: []
+//     }
+// 	}))
+// }
 
-// add card to deck
-export function addCardToDeck(title, card) {
-  // return AsyncStorage.removeItem(DECK_STORAGE_KEY)
-  return AsyncStorage.getItem(DECK_STORAGE_KEY)
-    .then((results) => {
-      const data = JSON.parse(results)
-      data[title].questions.push(card)
-      AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
-    })
-}
+// // add card to deck
+// export function addCardToDeck(title, card) {
+//   // return AsyncStorage.removeItem(DECK_STORAGE_KEY)
+//   return AsyncStorage.getItem(DECK_STORAGE_KEY)
+//     .then((results) => {
+//       const data = JSON.parse(results)
+//       data[title].questions.push(card)
+//       AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(data))
+//     })
+// }
 
 function formatDeck (deckTitle) {
   const deck_key =  deckTitle.replace(/\s/g,'_')
@@ -51,4 +51,22 @@ export function addDeckData (deckTitle) {
   AsyncStorage.mergeItem(DECK_STORAGE_KEY,JSON.stringify(deck))
 
   return deck
+}
+
+export function addQuestionData (deckTitle,question,answer) {
+  const deckId =  deckTitle.replace(/\s/g,'_')
+  const cardToAdd = [{
+    question,
+    answer,
+  }]
+  // overwritting data to add question/answer
+  AsyncStorage.getItem(DECK_STORAGE_KEY)
+  .then((decks) => {
+    const deckData = JSON.parse(decks)
+    deckData[deckId] = {
+      ...deckData[deckId],
+      questions: deckData[deckId].questions.concat(cardToAdd)
+    }
+    AsyncStorage.setItem(DECK_STORAGE_KEY,JSON.stringify(deckData))
+  })
 }

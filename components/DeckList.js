@@ -53,10 +53,6 @@ const styles = StyleSheet.create({
       paddingTop: 50,
       justifyContent: 'center',
     },
-    header: {
-      fontSize: 12,
-      fontFamily: 'Cochin'
-    }
   })
 
 function mapStateToProps (decks) {
