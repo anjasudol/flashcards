@@ -23,7 +23,7 @@ class DeckInfo extends Component {
             <View style={styles.container}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subtitle}>{questions} {questions > 1 ? 'cards' : 'card'}</Text>
-                {questions > 0 ? <Button text='Start quiz' onPress={()=> navigation.navigate('Quiz')}/> : <Text style={styles.text}>To start the quiz you must add at least one card</Text>}
+                {questions > 0 ? <Button text='Start quiz' onPress={()=> navigation.navigate('Quiz', { titleId: title })}/> : <Text style={styles.text}>To start the quiz you must add at least one card</Text>}
                 <Button text='Add Card' backCol='grey' onPress={()=> navigation.navigate('AddCard', { titleId: title })}/>
             </View>
         );

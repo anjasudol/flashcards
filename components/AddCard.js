@@ -17,12 +17,8 @@ class AddCard extends Component {
         if(question.length  && answer.length) {
             question.trim()
             answer.trim()
-            console.log(question, answer)
             const newCard = {question, answer}
             addQuestionData(titleId, question, answer)
-            // .then((titleId, question, answer)=>{
-            //     console.log(titleId, question, answer)
-            // })
             this.props.addNewCard(titleId, newCard)
             this.props.navigation.navigate('DeckInfo')
             
