@@ -18,11 +18,12 @@ class AddCard extends Component {
             question.trim()
             answer.trim()
             console.log(question, answer)
+            const newCard = {question, answer}
             addQuestionData(titleId, question, answer)
             // .then((titleId, question, answer)=>{
             //     console.log(titleId, question, answer)
             // })
-            addCard(titleId, {question, answer})
+            this.props.addNewCard(titleId, newCard)
             this.props.navigation.navigate('DeckInfo')
             
 
@@ -88,13 +89,13 @@ function mapStateToProps (decks,{ navigation }) {
     }
 }
 
-// function mapDispatchToProps (dispatch) {
-//     return {
-//       addNewCard: (titleId, {question, answer}) => {
-//         dispatch(addCard(titleId, {question, answer}))
-//       }
-//     }
-//   }
+function mapDispatchToProps (dispatch) {
+    return {
+      addNewCard: (titleId, {question, answer}) => {
+        dispatch(addCard(titleId, {question, answer}))
+      }
+    }
+  }
 
 //make this component available to the app
-export default connect(mapStateToProps)(AddCard);
+export default connect(mapStateToProps, mapDispatchToProps)(AddCard);

@@ -17,7 +17,7 @@ function reducer (state = {}, action) {
           ...state,
           [action.title]: {
             ...state[action.title],
-            questions: state.concat([action.questions])
+            questions:[ ...state[action.title].questions.concat(action.question)]
           }
         }
       default :
@@ -26,18 +26,3 @@ function reducer (state = {}, action) {
   }
   
   export default reducer
-
-
-  // React: {
-  //   title: 'React',
-  //   questions: [
-  //     {
-  //       question: 'What is React?',
-  //       answer: 'A library for managing user interfaces'
-  //     },
-  //     {
-  //       question: 'Where do you make Ajax requests in React?',
-  //       answer: 'The componentDidMount lifecycle event'
-  //     }
-  //   ]
-  // },
