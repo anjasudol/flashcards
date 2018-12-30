@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { connect } from 'react-redux'
 import Button from './Button'
-
+import { addCard } from '../actions'
+import { addQuestionData } from '../api/api'
 // create a component
 class AddCard extends Component {
     state ={
@@ -11,7 +12,19 @@ class AddCard extends Component {
         answer: ''
     }
     submit =()=>{
-        if(this.state.question.length > 10 && this.state.answer.length > 10) {
+        const { question, answer } = this.state
+        const { titleId } = this.props
+        if(question.length  && answer.length) {
+            question.trim()
+            answer.trim()
+            console.log(question, answer)
+            addQuestionData(titleId, question, answer)
+            // .then((titleId, question, answer)=>{
+            //     console.log(titleId, question, answer)
+            // })
+            addCard(titleId, {question, answer})
+            this.props.navigation.navigate('DeckInfo')
+            
 
         }
     }
@@ -66,11 +79,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
-
-function mapStateToProps (decks) {
+function mapStateToProps (decks,{ navigation }) {
+    const { titleId } = navigation.state.params
+    console.log(decks[titleId])
     return {
         decks,
+        titleId
     }
 }
+
+// function mapDispatchToProps (dispatch) {
+//     return {
+//       addNewCard: (titleId, {question, answer}) => {
+//         dispatch(addCard(titleId, {question, answer}))
+//       }
+//     }
+//   }
+
 //make this component available to the app
 export default connect(mapStateToProps)(AddCard);

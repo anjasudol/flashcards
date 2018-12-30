@@ -89,7 +89,6 @@ export default class App extends React.Component {
         <View style={{flex: 1}}>
           <FlashCardStatusBar backgroundColor={'purple'} barStyle="light-content"/> 
           <MainNavigator/>
-
         </View>
      </Provider>
     );
