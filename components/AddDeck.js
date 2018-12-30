@@ -8,22 +8,25 @@ import { connect } from 'react-redux'
 // create a component
 class AddDeck extends Component {
     state={
-        title: ''
+        title: '',
+        error: false
     }
     submit=()=>{
         const deckTitle = this.state.title.trim()
-        this.props.addNewDeck(addDeckData(deckTitle))
+        deckTitle.length && this.props.addNewDeck(addDeckData(deckTitle))
 
-        this.setState({title: ''});
+        deckTitle.length && this.setState({title: ''});
 
-        this.props.navigation.navigate('DeckInfo', { titleId: deckTitle }) 
+        deckTitle.length && this.props.navigation.navigate('DeckInfo', { titleId: deckTitle })
+
+        !deckTitle.length && this.setState({error: true});
     }
 
     render() {
         return (
             <View style={styles.container}>
                  <TextInput
-                    style={styles.input}
+                    style={[styles.input, this.state.error && !this.state.title ? styles.waring : null]}
                     onChangeText={(title) => this.setState({title})}
                     placeholder="Add a deck's name"
                     value={this.state.title}
@@ -51,6 +54,9 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
     },
+    waring: {
+        borderColor: 'red'
+    }
 });
 
 

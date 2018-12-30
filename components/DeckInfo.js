@@ -16,7 +16,7 @@ class DeckInfo extends Component {
 
     render() {
         const { deckInfo, navigation } = this.props
-        const questions = deckInfo.questions
+        const questions = deckInfo ? deckInfo.questions : null
 
         return (
             <View style={styles.container}>
@@ -60,7 +60,7 @@ function mapStateToProps (decks,{ navigation }) {
     const { titleId } = navigation.state.params
     return {
         decks,
-        deckInfo: decks[titleId],
+        deckInfo: decks ? decks[titleId] : null,
         titleId
     }
 }
