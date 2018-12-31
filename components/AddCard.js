@@ -21,8 +21,6 @@ class AddCard extends Component {
             addQuestionData(titleId, question, answer)
             this.props.addNewCard(titleId, newCard)
             this.props.navigation.navigate('DeckInfo')
-            
-
         }
     }
     render() {

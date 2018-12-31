@@ -1,25 +1,15 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from './Button'
 
 // create a component
 class Results extends Component {
-    static navigationOptions = ({ navigation }) => {
-		return {
-            title: 'Go to Decks',
-            headerLeft: <HeaderBackButton tintColor={'white'} onPress={() => navigation.navigate('Home')} />,
-		    }
-    }
     render() {
-        const {points, totalQuestions, titleId, navigation} = this.props
-        console.log(navigation)
+        const {points, totalQuestions, titleId} = this.props
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{titleId} Quiz Results</Text>
-                <Text style={styles.text}>Total points: {points} of {totalQuestions} </Text>
-
-                <Button text='Start quiz again'/>
+                <Text style={styles.text}>Total points: {points} of {totalQuestions} </Text>            
             </View>
         );
     }

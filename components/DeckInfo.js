@@ -18,7 +18,7 @@ class DeckInfo extends Component {
         const { deckInfo, navigation } = this.props
         const questions = deckInfo ? deckInfo.questions.length : null
         const title = deckInfo ? deckInfo.title : null
-
+    
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>{title}</Text>

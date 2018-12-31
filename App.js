@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, Platform, TouchableOpacity } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import { createStore } from 'redux';
 import reducer from './reducer'
 import { Provider } from 'react-redux'
@@ -8,6 +8,9 @@ import AddCard from './components/AddCard'
 import DeckInfo from './components/DeckInfo'
 import Quiz from './components/Quiz'
 import AddDeck from './components/AddDeck'
+import Results from './components/Results'
+
+import { setLocalNotification } from "./api/api"
 
 const store = createStore(reducer)
 import { TabNavigator, createStackNavigator } from 'react-navigation'
@@ -71,7 +74,11 @@ const MainNavigator = createStackNavigator(
       },
       Quiz: {
         screen: Quiz,
-      }
+      },
+      Results: {
+        screen: Results,
+      },
+
 }, {
   navigationOptions: {
     headerBackTitle: null,
@@ -83,6 +90,9 @@ const MainNavigator = createStackNavigator(
 })
 
 export default class App extends React.Component {
+  componentDidMount () {
+    setLocalNotification()
+}
   render() {
     return (
      <Provider store={store}>

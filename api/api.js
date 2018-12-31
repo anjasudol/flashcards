@@ -1,15 +1,14 @@
 import { AsyncStorage } from 'react-native'
 import {formatDeckResults, DECK_STORAGE_KEY} from './_DATA'
+import { Notifications, Permissions } from 'expo'
+
+const NOTIFICATION_KEY = 'FlashCard:Notifications'
 
  // getDecks
  export function fetchDeckResults() {
 	return AsyncStorage.getItem(DECK_STORAGE_KEY)
 		.then(formatDeckResults)
 }
-
-
-  // saveDeckTitle: take in a single title argument and add it to the decks.
-  // addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
 
 // getDeck: take in a single id argument and return the deck associated with that id.
   export function getDeck(title){
@@ -22,7 +21,6 @@ import {formatDeckResults, DECK_STORAGE_KEY} from './_DATA'
 
 function formatDeck (deckTitle) {
   const deck_key =  deckTitle.replace(/\s/g,'_')
-  // formatting data for DB/store
   return {
     [deck_key] : {
       title: deckTitle,
@@ -33,7 +31,6 @@ function formatDeck (deckTitle) {
 
 export function addDeckData (deckTitle) {
   const deck = formatDeck(deckTitle)
-  // adding new deck
   AsyncStorage.mergeItem(DECK_STORAGE_KEY,JSON.stringify(deck))
 
   return deck
@@ -45,7 +42,6 @@ export function addQuestionData (deckTitle,question,answer) {
     question,
     answer,
   }]
-  // overwritting data to add question/answer
   AsyncStorage.getItem(DECK_STORAGE_KEY)
   .then((decks) => {
     const deckData = JSON.parse(decks)
@@ -55,4 +51,63 @@ export function addQuestionData (deckTitle,question,answer) {
     }
     AsyncStorage.setItem(DECK_STORAGE_KEY,JSON.stringify(deckData))
   })
+}
+
+
+//Notifications
+
+function createNotification () {
+  return {
+    title: 'Start a Quiz!',
+    body: ":) don't forget to make a test today!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true,
+    }
+  }
+}
+
+export function setLocalNotification () {
+  // setting notification for next day
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then((data) => {
+      if (data === null) {
+        // asking for permission to send notification
+        Permissions.askAsync(Permissions.NOTIFICATIONS)
+          .then(({ status }) => {
+            if (status === 'granted') {
+              Notifications.cancelAllScheduledNotificationsAsync()
+
+
+              let tomorrow = new Date()
+              tomorrow.setDate(tomorrow.getDate() + 1)
+              tomorrow.setHours(20)
+              tomorrow.setMinutes(0)
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time: tomorrow,
+                  repeat: 'day',
+                }
+              )
+
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
+            }
+            else {// permission rejected or undetermined
+              alert('You will not receive any notifications. Permission can be granted to app in settings.')
+            }
+          })
+      }
+    })
+}
+
+export function clearLocalNotification () {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
