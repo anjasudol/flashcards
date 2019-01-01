@@ -21,11 +21,9 @@ class AddDeck extends Component {
             Alert.alert('There is already a deck with that name!')
         } else if (deckTitle.length) {
             this.props.addNewDeck(addDeckData(deckTitle))
-            this.props.navigation.navigate('DeckInfo', { titleId: deckTitle })
+            this.props.navigation.navigate('DeckInfo', { titleId: deckTitle, error: false })
             this.setState({title: ''});
-        } 
-
-        if (deckTitle.length) { (this.setState(()=>({error: true})))}
+        } else if (!deckTitle.length) { (this.setState(()=>({error: true})))}
     }
 
     render() {

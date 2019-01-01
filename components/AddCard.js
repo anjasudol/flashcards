@@ -9,31 +9,36 @@ import { addQuestionData } from '../api/api'
 class AddCard extends Component {
     state ={
         question: '',
-        answer: ''
+        answer: '',
+        error: false
     }
     submit =()=>{
         const { question, answer } = this.state
-        const { titleId } = this.props
+        const { titleId, navigation, addNewCard } = this.props
         if(question.length  && answer.length) {
+            console.log(titleId)
             question.trim()
             answer.trim()
             const newCard = {question, answer}
             addQuestionData(titleId, question, answer)
-            this.props.addNewCard(titleId, newCard)
-            this.props.navigation.navigate('DeckInfo')
+            addNewCard(titleId, newCard)
+            navigation.navigate('DeckInfo', {titleId: titleId})
+        } else {
+            this.setState({error: true});
         }
     }
     render() {
+        const { error, question, answer } = this.state
         return (
             <View style={styles.container}>
                  <TextInput
-                    style={styles.input}
+                    style={[styles.input, (error && !question && !answer) ? styles.waring : null]}
                     onChangeText={(question) => this.setState({question})}
                     placeholder='Add a question'
                     value={this.state.question}
                 />
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, (error && !question && !answer) ? styles.waring : null]}
                     onChangeText={(answer) => this.setState({answer})}
                     placeholder='Add an answer'
                     value={this.state.answer}
@@ -73,10 +78,12 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
     },
+    waring: {
+        borderColor: 'red'
+    },
 });
 function mapStateToProps (decks,{ navigation }) {
     const { titleId } = navigation.state.params
-    console.log(decks[titleId])
     return {
         decks,
         titleId

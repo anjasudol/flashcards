@@ -1,4 +1,4 @@
-## Would You Rather Project
+## Mobile FlashCards
 Its a React-Native App which can be used in learning, by using same concept as physical Flashcards. It is effective way to help you recall important information. This app let you take quiz on a topic/deck that you created & can keep track score to gauge your progress and reminds you to take 1 quiz on any topic per da
 
 
@@ -10,7 +10,7 @@ Its a React-Native App which can be used in learning, by using same concept as p
 * To open Ios simulator - A 
 
 
-## Important
+## Information
 This project was bootstrapped with `Create React Native App`
 
 ## Data

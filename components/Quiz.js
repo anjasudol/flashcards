@@ -38,14 +38,14 @@ class Quiz extends Component {
         const { index, showAnswer } = this.state
 
         if(cards.length === index) {
-            return <Results points={this.state.point} totalQuestions={cards.length} titleId={titleId}/>
+            this.setState({index: 0, point: 0, showAnswer: false});
+           return this.props.navigation.navigate('Results', { points: this.state.point, totalQuestions: cards.length, titleId: titleId})
         }
         return (
             <View style={styles.container}>
                 <Text style={styles.number}>{index + 1}/{cards.length}</Text>
                 {showAnswer ? <Text style={styles.text}>{cards[index].answer}</Text> : <Text style={styles.text}>{cards[index].question}</Text> }
                 <Button text={showAnswer ? 'show question' : 'show answer' } onPress={()=> this.setState({showAnswer: !this.state.showAnswer})}/>
-
                 <Button text='correct' backCol='green' onPress={this.correct}/>
                 <Button text='incorrect' backCol='red' onPress={this.inCorrect}/>
             </View>

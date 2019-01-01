@@ -13,7 +13,7 @@ import Results from './components/Results'
 import { setLocalNotification } from "./api/api"
 
 const store = createStore(reducer)
-import { TabNavigator, createStackNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 
@@ -27,7 +27,7 @@ function FlashCardStatusBar({backgroundColor, ...props}){
 
 
 
-const Tabs = TabNavigator({
+const Tabs = createBottomTabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {

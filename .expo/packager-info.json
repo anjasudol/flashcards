@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 36234,
   "expoServerNgrokUrl": "https://xp-a5u.anonymous.flashcards.exp.direct",
   "packagerNgrokUrl": "https://packager.xp-a5u.anonymous.flashcards.exp.direct",
-  "ngrokPid": 6641
+  "ngrokPid": 36249
 }
